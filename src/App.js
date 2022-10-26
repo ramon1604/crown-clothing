@@ -4,6 +4,7 @@ import Navigation from './routes/navigation/navigation.jsx';
 import SignIn from './routes/sign-in/sing-in.jsx';
 
  const Shop = () => <div><h1>Shop</h1></div>
+ 
 
 const App = () => {
   return (
