@@ -11,7 +11,7 @@ import {
   doc,
   getDoc,
   setDoc,
-  connectFirestoreEmulator,
+//  connectFirestoreEmulator,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -25,15 +25,17 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
 export const auth = getAuth();
-export const signInWithGoogle = () => signInWithPopup(auth, provider);
+export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+
 
 export const db = getFirestore();
 
