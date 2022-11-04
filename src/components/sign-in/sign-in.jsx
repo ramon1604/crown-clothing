@@ -1,17 +1,22 @@
 // import { useEffect } from "react";
 // import { getRedirectResult } from "firebase/auth";
-import "./sign-in.scss";
 import {
- // auth,
- // signInWithGoogleRedirect,
+  // auth,
+  // signInWithGoogleRedirect,
   signInWithGoogle,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.js";
 
+import SignUp from "../sign-up/sign-up";
+
 const SignIn = () => {
   const logGoogleUser = async () => {
-    const { user } = await signInWithGoogle();
-    await createUserDocumentFromAuth(user);
+    try {
+      const { user } = await signInWithGoogle();
+      await createUserDocumentFromAuth(user, "");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   /*
@@ -29,14 +34,15 @@ const SignIn = () => {
   */
 
   return (
-    <div>
-      <h1>Sign In</h1>
-      <button onClick={logGoogleUser}>Sign In with Google</button>
+    <div className={`sign-in-container`}>
+      <h2>Sign In</h2>
+      <button className={`buttons-container`} onClick={logGoogleUser}>Sign In with Google</button>
       {/*
       <button onClick={logGoogleUserRedirect}>
         Sign In with Google Redirect
       </button>
      */}
+      <SignUp />
     </div>
   );
 };
