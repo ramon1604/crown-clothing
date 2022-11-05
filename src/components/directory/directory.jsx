@@ -1,3 +1,5 @@
+import React from "react";
+
 import './directory.scss'
 import CategoryContainer from '../categoryContainer/categoryContainer.jsx'
 import directories from './directory.json'

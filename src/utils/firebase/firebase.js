@@ -1,19 +1,13 @@
 import { initializeApp } from "firebase/app";
 import {
+  signInWithEmailAndPassword,
   getAuth,
-  signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  //  connectFirestoreEmulator,
-} from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -38,13 +32,20 @@ export const auth = getAuth();
 
 export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
 
-export const signInWithGoogleRedirect = () => {
-  return signInWithRedirect(auth, googleProvider);
-};
-
 export const signUpUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInWithUserPassword = async (email, password) => {
+  try {
+    if (!email || !password) return;
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user
+  } catch (error) {
+    alert(error.message);
+    return false
+  }
 };
 
 export const createUserDocumentFromAuth = async (userAuth, userName) => {
@@ -54,7 +55,7 @@ export const createUserDocumentFromAuth = async (userAuth, userName) => {
   if (!userSnapshot.exists()) {
     let { displayName, email } = userAuth;
     if (!displayName) {
-      displayName = userName
+      displayName = userName;
     }
     const createdAt = new Date();
     try {
@@ -64,10 +65,9 @@ export const createUserDocumentFromAuth = async (userAuth, userName) => {
         createdAt,
       });
     } catch (error) {
-      console.log("error creating user", error.message);
+      console.log(error.message);
     }
   } else {
     return userDocRef;
   }
 };
-
