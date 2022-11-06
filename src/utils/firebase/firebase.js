@@ -1,3 +1,4 @@
+// imports from Firebase SDK
 import { initializeApp } from "firebase/app";
 import {
   signInWithEmailAndPassword,
@@ -6,10 +7,9 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
-// Your web app's Firebase configuration
+// Our Firebase configuration object
 const firebaseConfig = {
   apiKey: "AIzaSyAWISabgxnYBckx2qRT8M_ZHh45c6pn-FE",
   authDomain: "crown-clothing-db-e251b.firebaseapp.com",
@@ -21,53 +21,93 @@ const firebaseConfig = {
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
+
+// Get Firebase authorization object after initialized
+export const auth = getAuth();
+
+// Create our database access object to Firebase
 export const db = getFirestore();
 
+// Initialize Google provider in Firebase
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-export const auth = getAuth();
-
-export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
-
-export const signUpUserWithEmailAndPassword = async (email, password) => {
-  if (!email || !password) return;
-  return await createUserWithEmailAndPassword(auth, email, password);
-};
-
-export const signInWithUserPassword = async (email, password) => {
+// Sign used methods from Firebase
+//-----------------------------------
+//  Sign-in and Sign-up with Google popup
+export const signInWithGoogle = () => {
   try {
-    if (!email || !password) return;
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return userCredential.user
+    const userCredential = signInWithPopup(auth, googleProvider);
+    return userCredential;
   } catch (error) {
-    alert(error.message);
-    return false
+    let msg = error.message;
+    msg = msg.substring(msg.indexOf("(") + 1, msg.indexOf(")"));
+    alert(msg);
+    return false;
   }
 };
 
+//  Sign-up with Email and Password (no provider)
+export const signUpUserWithEmailAndPassword = async (email, password) => {
+  try {
+    if (!email || !password) return;
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential;
+  } catch (error) {
+    let msg = error.message;
+    msg = msg.substring(msg.indexOf("(") + 1, msg.indexOf(")"));
+    alert(msg);
+    return false;
+  }
+};
+
+//  Sign-in with Email and Password (no provider)
+export const signInWithUserPassword = async (email, password) => {
+  try {
+    if (!email || !password) return;
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential;
+  } catch (error) {
+    let msg = error.message;
+    msg = msg.substring(msg.indexOf("(") + 1, msg.indexOf(")"));
+    alert(msg);
+    return false;
+  }
+};
+
+// Create account in users collection
 export const createUserDocumentFromAuth = async (userAuth, userName) => {
   if (!userAuth) return;
-  const userDocRef = doc(db, "users", userAuth.uid);
-  const userSnapshot = await getDoc(userDocRef);
-  if (!userSnapshot.exists()) {
-    let { displayName, email } = userAuth;
-    if (!displayName) {
-      displayName = userName;
-    }
-    const createdAt = new Date();
-    try {
+  try {
+    const userDocRef = doc(db, "users", userAuth.uid);
+    const userSnapshot = await getDoc(userDocRef);
+    if (!userSnapshot.exists()) {
+      let { displayName, email } = userAuth;
+      if (!displayName) {
+        displayName = userName;
+      }
+      const createdAt = new Date();
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
       });
-    } catch (error) {
-      console.log(error.message);
+    } else {
+      return userDocRef;
     }
-  } else {
-    return userDocRef;
+  } catch (error) {
+    let msg = error.message;
+    msg = msg.substring(msg.indexOf("(") + 1, msg.indexOf(")"));
+    alert(msg);
   }
 };

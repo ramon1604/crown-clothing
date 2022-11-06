@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 
 import "./sign-up.scss";
+
 import FormInput from "../form-input/form-input.jsx";
+import Button from "../button/button";
+
 import {
   signUpUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.js";
-import Button from "../button/button";
 
 const defaultFormFields = {
   displayName: "",
@@ -14,6 +16,7 @@ const defaultFormFields = {
   password: "",
   confirmPassword: "",
 };
+
 const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
@@ -24,13 +27,9 @@ const SignUp = () => {
       alert("password and confirmPassword do not match");
       return;
     }
-    try {
-      const { user } = await signUpUserWithEmailAndPassword(email, password);
-      await createUserDocumentFromAuth(user, displayName);
-      setFormFields(defaultFormFields);
-    } catch (error) {
-      alert(error.message);
-    }
+    const { user } = await signUpUserWithEmailAndPassword(email, password);
+    await createUserDocumentFromAuth(user, displayName);
+    setFormFields(defaultFormFields);
   };
 
   const handleChange = (e) => {
@@ -75,7 +74,7 @@ const SignUp = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button type={`submit`} btnClass={``} >
+        <Button type={`submit`} btnClass={``}>
           Sign Up
         </Button>
       </form>

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
 import "./sign-in.scss";
+
 import FormInput from "../form-input/form-input.jsx";
 import Button from "../button/button.jsx";
+
 import {
   signInWithUserPassword,
   signInWithGoogle,
@@ -13,14 +15,11 @@ const defaultFormFields = {
   email: "",
   password: "",
 };
+
 const SignIn = () => {
   const logGoogleUser = async () => {
-    try {
-      const { user } = await signInWithGoogle();
-      await createUserDocumentFromAuth(user, "");
-    } catch (error) {
-      alert(error.message);
-    }
+    const { user } = await signInWithGoogle();
+    await createUserDocumentFromAuth(user, "");
   };
 
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -28,12 +27,8 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await signInWithUserPassword(email, password);
-      setFormFields(defaultFormFields);
-    } catch (error) {
-      alert(error.message);
-    }
+    await signInWithUserPassword(email, password);
+    setFormFields(defaultFormFields);
   };
 
   const handleChange = (e) => {
@@ -63,7 +58,7 @@ const SignIn = () => {
           value={password}
         />
         <div className={`buttons-container`}>
-          <Button type={`submit`} btnClass={``} >
+          <Button type={`submit`} btnClass={``}>
             Sign In
           </Button>
           <Button
