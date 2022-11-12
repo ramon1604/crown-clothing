@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+import { UserContext } from "../../contexts/user-context.jsx";
+
+import { msgConditionReturn } from "../../utils/functions/functions.js";
 
 import "./sign-in.scss";
 
@@ -17,18 +23,32 @@ const defaultFormFields = {
 };
 
 const SignIn = () => {
-  const logGoogleUser = async () => {
-    const { user } = await signInWithGoogle();
-    await createUserDocumentFromAuth(user, "");
-  };
-
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const logGoogleUser = async () => {
+    if (msgConditionReturn("user already logged in", currentUser)) return;
+    const { user } = await signInWithGoogle();
+    if (user) {
+      await createUserDocumentFromAuth(user, "");
+      setCurrentUser(user);
+      navigate("/");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signInWithUserPassword(email, password);
-    setFormFields(defaultFormFields);
+    if (msgConditionReturn("user already logged in", currentUser)) return;
+    const { user } = await signInWithUserPassword(email, password);
+    if (user) {
+      setFormFields(defaultFormFields);
+      setCurrentUser(user);
+      navigate("/");
+    }
   };
 
   const handleChange = (e) => {

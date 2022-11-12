@@ -1,8 +1,8 @@
 import React from "react";
 
-import './directory.scss'
-import CategoryContainer from '../categoryContainer/categoryContainer.jsx'
-import directories from './directory.json'
+import "./directory.scss";
+import CategoryContainer from "../categoryContainer/categoryContainer.jsx";
+import directories from "./directory.json";
 
 const Directory = () => {
   return (
@@ -11,6 +11,6 @@ const Directory = () => {
         <CategoryContainer key={id} title={title} image={imageUrl} />
       ))}
     </div>
-  )
-}
-export default Directory
+  );
+};
+export default Directory;

@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { UserContext } from "../../contexts/user-context.jsx";
+
+import { msgConditionReturn } from "../../utils/functions/functions";
 
 import "./sign-up.scss";
 
@@ -9,6 +13,8 @@ import {
   signUpUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.js";
+
+import { useNavigate } from "react-router-dom";
 
 const defaultFormFields = {
   displayName: "",
@@ -21,15 +27,24 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (msgConditionReturn("user already logged in", currentUser)) return;
     if (password !== confirmPassword) {
       alert("password and confirmPassword do not match");
       return;
     }
     const { user } = await signUpUserWithEmailAndPassword(email, password);
-    await createUserDocumentFromAuth(user, displayName);
-    setFormFields(defaultFormFields);
+    if (user) {
+      await createUserDocumentFromAuth(user, displayName);
+      setFormFields(defaultFormFields);
+      setCurrentUser(user);
+      navigate("/");
+    }
   };
 
   const handleChange = (e) => {
