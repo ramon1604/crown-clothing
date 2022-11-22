@@ -1,6 +1,4 @@
-import React, { useState, useContext } from "react";
-
-import { UserContext } from "../../contexts/user-context.jsx";
+import React, { useState } from "react";
 
 import { msgConditionReturn } from "../../utils/functions/functions";
 
@@ -27,13 +25,11 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (msgConditionReturn("user already logged in", currentUser)) return;
+    if (msgConditionReturn("user already logged in", "")) return;
     if (password !== confirmPassword) {
       alert("password and confirmPassword do not match");
       return;
@@ -42,7 +38,6 @@ const SignUp = () => {
     if (user) {
       await createUserDocumentFromAuth(user, displayName);
       setFormFields(defaultFormFields);
-      setCurrentUser(user);
       navigate("/");
     }
   };
