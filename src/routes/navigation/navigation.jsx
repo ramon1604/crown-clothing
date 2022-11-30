@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 
 import { UserContext } from "../../contexts/user-context.jsx";
 
@@ -12,7 +12,7 @@ const Navigation = () => {
   const { currentUser } = useContext(UserContext);
 
   return (
-    <Fragment>
+    <>
       <div className="navigation">
         <div className="logo-container">
           <Link to="/">
@@ -37,7 +37,7 @@ const Navigation = () => {
         </div>
       </div>
       <Outlet />
-    </Fragment>
+    </>
   );
 };
 
