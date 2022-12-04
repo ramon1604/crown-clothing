@@ -4,14 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./routes/home/home.jsx";
 import Navigation from "./routes/navigation/navigation.jsx";
 import SignPage from "./components/sign-page/sign-page.jsx";
-
-const Shop = () => {
-  return (
-    <div>
-      <h1>Shop</h1>
-    </div>
-  );
-};
+import Shop from "./components/shop/shop.jsx";
 
 const App = () => {
   const { currentUser } = useContext(UserContext);
