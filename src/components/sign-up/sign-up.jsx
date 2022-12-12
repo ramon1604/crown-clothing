@@ -4,7 +4,7 @@ import { msgConditionReturn } from "../../utils/functions/functions";
 
 import "./sign-up.scss";
 
-import FormInput from "../form-input/form-input.jsx";
+import FormInput from "../formInput/formInput.jsx";
 import Button from "../button/button";
 
 import {
@@ -84,7 +84,7 @@ const SignUp = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button type={`submit`} btnClass={``}>
+        <Button buttonType={``}>
           Sign Up
         </Button>
       </form>

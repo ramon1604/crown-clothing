@@ -6,7 +6,7 @@ import { msgConditionReturn } from "../../utils/functions/functions.js";
 
 import "./sign-in.scss";
 
-import FormInput from "../form-input/form-input.jsx";
+import FormInput from "../formInput/formInput.jsx";
 import Button from "../button/button.jsx";
 
 import {
@@ -70,12 +70,12 @@ const SignIn = () => {
           value={password}
         />
         <div className={`buttons-container`}>
-          <Button type={`submit`} btnClass={``}>
+          <Button buttonType={``}>
             Sign In
           </Button>
           <Button
             type={`button`}
-            btnClass={`google-sign-in`}
+            buttonType={`google-sign-in`}
             clickHandler={logGoogleUser}
           >
             Google Sign In

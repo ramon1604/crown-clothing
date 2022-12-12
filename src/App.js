@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UserContext } from "./contexts/user-context.jsx";
+import { UserContext } from "./contexts/userContext.jsx";
 import { Routes, Route } from "react-router-dom";
 import Home from "./routes/home/home.jsx";
 import Navigation from "./routes/navigation/navigation.jsx";

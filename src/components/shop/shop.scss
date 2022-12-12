@@ -1,6 +1,14 @@
 .products-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 10px;
-    row-gap: 50px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-auto-flow: column;
+  overflow-x: scroll;
+  column-gap: 20px;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  margin: 20px; 
+}
+
+.products-container::-webkit-scrollbar {
+  display: none;
 }
