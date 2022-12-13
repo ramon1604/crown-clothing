@@ -70,12 +70,12 @@ const SignIn = () => {
           value={password}
         />
         <div className={`buttons-container`}>
-          <Button buttonType={``}>
+          <Button type={`button`} btnClass={``}>
             Sign In
           </Button>
           <Button
             type={`button`}
-            buttonType={`google-sign-in`}
+            btnClass={`google-sign-in`}
             clickHandler={logGoogleUser}
           >
             Google Sign In

@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <Button buttonType="inverted" clickHandler={addProductToCart}>
+      <Button type={`button`} btnClass={``} clickHandler={addProductToCart}>
         Add to Cart
       </Button>
     </div>

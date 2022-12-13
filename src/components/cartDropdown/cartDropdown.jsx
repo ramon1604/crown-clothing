@@ -14,7 +14,7 @@ const CartDropdown = () => {
           <CartItem key={item.id} cartItem={item} />
         ))}
       </div>
-      <Button buttonType="inverted" >Checkout</Button>
+      <Button type={`button`} btnClass={``} >Checkout</Button>
     </div>
   );
 };
