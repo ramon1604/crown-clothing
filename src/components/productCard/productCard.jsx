@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <Button type={`button`} btnClass={``} clickHandler={addProductToCart}>
+      <Button type={`button`} btnClass={``} onClick={addProductToCart}>
         Add to Cart
       </Button>
     </div>

@@ -41,7 +41,7 @@ const Navigation = () => {
             <CartIcon />
           </span>
         </div>
-        {show && <CartDropdown />}
+        {show && <CartDropdown handlerDropdown={handlerShow} />}
       </div>
       <Outlet />
     </>
