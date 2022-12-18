@@ -1,14 +1,23 @@
-.products-container {
-  display: grid;
-  grid-template-rows: auto;
-  grid-auto-flow: column;
-  overflow-x: scroll;
-  column-gap: 20px;
-  -ms-overflow-style: none; 
-  scrollbar-width: none;
-  margin: 20px; 
-}
+.products-category {
+  margin: 20px;
+  font-size: 24px;
+  font-weight: bold;
 
-.products-container::-webkit-scrollbar {
-  display: none;
+  .arrow {
+    cursor: pointer;
+  }
+  .products-container {
+    display: grid;
+    grid-template-rows: auto;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    column-gap: 20px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 0px;
+  }
+
+  .products-container::-webkit-scrollbar {
+    display: none;
+  }
 }
