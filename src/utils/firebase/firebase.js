@@ -16,6 +16,8 @@ import {
   setDoc,
   collection,
   writeBatch,
+  query,
+  getDocs,
 } from "firebase/firestore";
 
 // Our Firebase configuration object
@@ -147,6 +149,21 @@ export const addCollectionAndDocuments = async (
       await batch.commit();
       console.log("batch success");
     }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getCategoriesAndDocuments = async (collectionKey) => {
+  try {
+    const collectionRef = collection(db, collectionKey);
+    const q = query(collectionRef);
+    const querySnapshot = await getDocs(q);
+    const categoryMap = querySnapshot.docs.map((docSnapshot) => {
+      const { title, items } = docSnapshot.data();
+      return { title: title, items: items };
+    });
+    return categoryMap;
   } catch (error) {
     console.log(error.message);
   }

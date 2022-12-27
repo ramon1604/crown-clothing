@@ -1,10 +1,15 @@
 import React, { createContext, useState, useEffect } from "react";
 
-import { PRODUCTS } from "../shop-data.js";
+//import { PRODUCTS } from "../shop-data.js";
 
-import { addCollectionAndDocuments } from "../utils/firebase/firebase.js";
+import {
+  addCollectionAndDocuments,
+  getCategoriesAndDocuments,
+} from "../utils/firebase/firebase.js";
 
 export const ProductsContext = createContext();
+
+let PRODUCTS = [];
 
 export const ProductsProvider = (props) => {
   const [products, setProducts] = useState(PRODUCTS);
@@ -12,6 +17,10 @@ export const ProductsProvider = (props) => {
 
   useEffect(() => {
     addCollectionAndDocuments("hats", "categories", PRODUCTS);
+    (async () => {
+      PRODUCTS = await getCategoriesAndDocuments("categories");
+      setProducts(PRODUCTS);
+    })();
   }, []);
 
   return (
