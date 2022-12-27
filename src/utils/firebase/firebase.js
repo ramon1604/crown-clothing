@@ -9,7 +9,14 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 
 // Our Firebase configuration object
 const firebaseConfig = {
@@ -118,4 +125,29 @@ export const createUserDocumentFromAuth = async (userAuth, userName) => {
 export const userSignOut = async () => await signOut(auth);
 
 // Listener for Sign Out or Sign In changes
-export const authChangedListener = (userState) => onAuthStateChanged(auth, userState);
+export const authChangedListener = (userState) =>
+  onAuthStateChanged(auth, userState);
+
+// Adding data to firebase collection
+export const addCollectionAndDocuments = async (
+  firstMember,
+  collectionKey,
+  objectsToAdd
+) => {
+  try {
+    const collectionDocRef = doc(db, collectionKey, firstMember);
+    const collectionSnapshot = await getDoc(collectionDocRef);
+    if (!collectionSnapshot.exists()) {
+      const collectionRef = collection(db, collectionKey);
+      const batch = writeBatch(db);
+      objectsToAdd.forEach((object) => {
+        const docRef = doc(collectionRef, object.title.toLowerCase());
+        batch.set(docRef, object);
+      });
+      await batch.commit();
+      console.log("batch success");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};

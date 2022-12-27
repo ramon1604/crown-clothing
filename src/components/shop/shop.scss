@@ -1,11 +1,35 @@
 .products-category {
+  position: relative;
   margin: 20px;
   font-size: 24px;
   font-weight: bold;
 
+  .arrowLeft {
+    position: absolute;
+    top: 40%;
+    left: 1%;
+    font-size: 3em;
+    color: white;
+    opacity: 0.7;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  .arrowRight {
+    position: absolute;
+    top: 40%;
+    right: 1%;
+    font-size: 3em;
+    color: white;
+    opacity: 0.7;
+    z-index: 10;
+    cursor: pointer;
+  }
+
   .arrow {
     cursor: pointer;
   }
+
   .products-container {
     display: grid;
     grid-template-rows: auto;
