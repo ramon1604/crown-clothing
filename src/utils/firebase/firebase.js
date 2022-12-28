@@ -154,6 +154,7 @@ export const addCollectionAndDocuments = async (
   }
 };
 
+// Loading data from firebase collection
 export const getCategoriesAndDocuments = async (collectionKey) => {
   try {
     const collectionRef = collection(db, collectionKey);

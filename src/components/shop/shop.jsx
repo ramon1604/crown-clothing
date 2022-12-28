@@ -5,12 +5,14 @@ import ProductCard from "../productCard/productCard.jsx";
 
 import "./shop.scss";
 
+let initHash;
+
 const Shop = () => {
   const { products } = useContext(ProductsContext);
   const location = useLocation();
-  let initHash;
+
   if (location.state === null) {
-    initHash = 'Hats';
+    initHash = "Hats";
   } else {
     initHash = location.state.title;
   }
@@ -22,8 +24,20 @@ const Shop = () => {
 
   useEffect(() => {
     const section = document.getElementById(initHash);
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [initHash]);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
+
+  const scrollLeft = (title) => {
+    var left = document.querySelector("." + title);
+    left.scrollBy(270, 0);
+  };
+
+  const scrollRight = (title) => {
+    var right = document.querySelector("." + title);
+    right.scrollBy(-270, 0);
+  };
 
   return (
     <>
@@ -33,9 +47,13 @@ const Shop = () => {
             &#10094;{" "}
           </span>
           <span id={title}>{title}</span>
-          <span className="arrowLeft">&#10094;</span>
-          <span className="arrowRight">&#10095;</span>
-          <div key={title} className="products-container">
+          <span onClick={() => scrollLeft(title)} className="arrowLeft">
+            &#10094;
+          </span>
+          <span onClick={() => scrollRight(title)} className="arrowRight">
+            &#10095;
+          </span>
+          <div key={title} className={`${title} products-container`}>
             {items.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
