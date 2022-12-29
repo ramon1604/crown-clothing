@@ -31,12 +31,12 @@ const Shop = () => {
 
   const scrollLeft = (title) => {
     var left = document.querySelector("." + title);
-    left.scrollBy(270, 0);
+    left.scrollBy(window.innerWidth/5.26, 0);
   };
 
   const scrollRight = (title) => {
     var right = document.querySelector("." + title);
-    right.scrollBy(-270, 0);
+    right.scrollBy(-window.innerWidth/5.26, 0);
   };
 
   return (

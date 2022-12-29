@@ -1,16 +1,16 @@
 .products-category {
   position: relative;
-  margin: 20px;
+  margin: 1vw;
   font-size: 24px;
   font-weight: bold;
 
   .arrowLeft {
     position: absolute;
     top: 40%;
-    left: 1%;
-    font-size: 3em;
-    color: white;
-    opacity: 0.7;
+    left: -1.9%;
+    font-size: 5vw;
+    color: black;
+    opacity: 0.5;
     z-index: 10;
     cursor: pointer;
   }
@@ -18,10 +18,10 @@
   .arrowRight {
     position: absolute;
     top: 40%;
-    right: 1%;
-    font-size: 3em;
-    color: white;
-    opacity: 0.7;
+    right: -1.8%;
+    font-size: 5vw;
+    color: black;
+    opacity: 0.5;
     z-index: 10;
     cursor: pointer;
   }
@@ -35,10 +35,9 @@
     grid-template-rows: auto;
     grid-auto-flow: column;
     overflow-x: scroll;
-    column-gap: 20px;
+    column-gap: 0.5vw;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    margin: 0px;
   }
 
   .products-container::-webkit-scrollbar {

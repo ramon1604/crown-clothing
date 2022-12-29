@@ -1,57 +1,55 @@
 .product-card-container {
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      margin-bottom: 5px;
-    }
-  
-    button {
-      width: 80%;
-      opacity: 0.7;
-      position: absolute;
-      bottom:  20%;
-      display: none;
-    }
-  
-    &:hover {
-      img {
-        opacity: 0.8;
-      }
-  
-      button {
-        opacity: 0.85;
-        display: flex;
-      }
-    }
-  
-    .footer {
-      width: 100%;
-      height: 10%;
-      opacity: 0.50;
-      display: flex;
-      justify-content: space-between;
-      font-size: 18px;
-      position: absolute;
-      bottom: 5px;
-      background-color: black;
-      color: white;
-      padding: 5px;
+  width: 18.6vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 
-      .name {
-        width: 90%;
-        margin-bottom: 15px;
-      }
-  
-      .price {
-        width: 10%;
-      }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  button {
+    width: 14vw;
+    opacity: 0.7;
+    position: absolute;
+    bottom: 20%;
+    display: none;
+  }
+
+  &:hover {
+    img {
+      opacity: 0.8;
+    }
+
+    button {
+      opacity: 0.85;
+      display: flex;
     }
   }
-  
+
+  .footer {
+    width: 100%;
+    height: auto;
+    opacity: 0.5;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2vw;
+    position: absolute;
+    bottom: 0px;
+    background-color: black;
+    color: white;
+    padding: 1vw 0.2vw 0.2vw 0.2vw;
+
+    .name {
+      width: 90%;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      width: 10%;
+    }
+  }
+}
