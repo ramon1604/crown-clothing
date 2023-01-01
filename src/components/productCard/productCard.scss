@@ -1,5 +1,6 @@
 .product-card-container {
-  width: 18.6vw;
+  width: 18.3vw;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,7 +42,7 @@
     bottom: 0px;
     background-color: black;
     color: white;
-    padding: 1vw 0.2vw 0.2vw 0.2vw;
+    padding: 1vw 0.4vw 0.2vw 0.2vw;
 
     .name {
       width: 90%;

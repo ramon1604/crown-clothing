@@ -1,13 +1,13 @@
 .products-category {
   position: relative;
-  margin: 1vw;
-  font-size: 24px;
+  margin: 1vw 2vw;
+  font-size: 2vw;
   font-weight: bold;
 
   .arrowLeft {
     position: absolute;
     top: 40%;
-    left: -1.9%;
+    left: -2.7vw;
     font-size: 5vw;
     color: black;
     opacity: 0.5;
@@ -18,7 +18,7 @@
   .arrowRight {
     position: absolute;
     top: 40%;
-    right: -1.8%;
+    right: -2.7vw;
     font-size: 5vw;
     color: black;
     opacity: 0.5;
@@ -33,6 +33,7 @@
   .products-container {
     display: grid;
     grid-template-rows: auto;
+    grid-template-columns: auto;
     grid-auto-flow: column;
     overflow-x: scroll;
     column-gap: 0.5vw;
