@@ -7,6 +7,7 @@ import "./shop.scss";
 
 let initHash;
 let scrollPos = 0;
+let prevTitle = '';
 
 const Shop = () => {
   const { products } = useContext(ProductsContext);
@@ -24,25 +25,29 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    const section = document.getElementById(initHash);
+    const section = document.querySelector("#"+initHash);
     section && section.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  const scrollLeft = (title) => {
-    const left = document.querySelector("." + title);
-    left.scrollBy(window.innerWidth / 5.26, 0);
-    hideShowArrows(left);
+  const scroll = (e, title) => {
+    const obj = document.querySelector(
+      "." + title + ".products-container"
+    );
+    let signOp = 0;
+    if (e.target.className === (title + " arrowLeft")) {
+      signOp = 1;
+    } else {
+      signOp = -1;
+    }
+    obj.scrollBy(signOp * (obj.children[0].offsetWidth + 8), 0);
+    hideShowArrows(title, obj);
   };
 
-  const scrollRight = (title) => {
-    const right = document.querySelector("." + title);
-    right.scrollBy(-window.innerWidth / 5.26, 0);
-    hideShowArrows(right);
-  };
-
-  const hideShowArrows = (obj) => {
-    const rArrow = document.querySelector("#aRight");
-    const lArrow = document.querySelector("#aLeft");
+  const hideShowArrows = (title, obj) => {
+    if (prevTitle !== title) {scrollPos = 0};
+    prevTitle = title;
+    const rArrow = document.querySelector("." + title + ".arrowRight");
+    const lArrow = document.querySelector("." + title + ".arrowLeft");
     if (obj.scrollLeft) {
       rArrow.style.visibility = "visible";
     } else {
@@ -54,11 +59,10 @@ const Shop = () => {
       } else {
         lArrow.style.visibility = "visible";
       }
-      scrollPos = obj.scrollLeft;
     } else {
-      scrollPos = obj.scrollLeft;
       lArrow.style.visibility = "visible";
     }
+    scrollPos = obj.scrollLeft;
   };
 
   return (
@@ -69,18 +73,10 @@ const Shop = () => {
             &#10094;{" "}
           </span>
           <span id={title}>{title}</span>
-          <span
-            id="aLeft"
-            onClick={() => scrollLeft(title)}
-            className="arrowLeft"
-          >
+          <span onClick={(e) => scroll(e, title)} className={title + " arrowLeft"}>
             &#10094;
           </span>
-          <span
-            id="aRight"
-            onClick={() => scrollRight(title)}
-            className="arrowRight"
-          >
+          <span onClick={(e) => scroll(e, title)} className={title + " arrowRight"}>
             &#10095;
           </span>
           <div key={title} className={`${title} products-container`}>
