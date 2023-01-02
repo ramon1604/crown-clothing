@@ -1,0 +1,29 @@
+.shopCategory-container {
+  position: relative;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  margin-left: 5vw;
+
+  .shopCategory-items-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 1vw;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 2vw;
+  }
+
+  .shopCategory-items-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .shopCategory-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .title {
+    font-size: 3vw;
+    font-weight: bold;
+    padding-left:  40vw;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { ProductsContext } from "../../contexts/productsContext.jsx";
 import ProductCard from "../productCard/productCard.jsx";
 
@@ -72,7 +72,9 @@ const Shop = () => {
           <span className="arrow" onClick={previousPage}>
             &#10094;{" "}
           </span>
+          <Link to={title.toLowerCase()}>
           <span id={title}>{title}</span>
+          </Link>
           <span onClick={(e) => scroll(e, title)} className={title + " arrowLeft"}>
             &#10094;
           </span>
