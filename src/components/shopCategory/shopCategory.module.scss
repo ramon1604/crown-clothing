@@ -1,10 +1,10 @@
-.shopCategory-container {
+.shopCategoryContainer {
   position: relative;
   -ms-overflow-style: none;
   scrollbar-width: none;
   margin-left: 5vw;
 
-  .shopCategory-items-container {
+  .shopCategoryItemsContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     row-gap: 1vw;
@@ -13,11 +13,11 @@
     margin: 2vw;
   }
 
-  .shopCategory-items-container::-webkit-scrollbar {
+  .shopCategoryItemsContainer::-webkit-scrollbar {
     display: none;
   }
 
-  .shopCategory-container::-webkit-scrollbar {
+  .shopCategoryContainer::-webkit-scrollbar {
     display: none;
   }
 

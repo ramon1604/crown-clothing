@@ -1,4 +1,4 @@
-.products-category {
+.shopCategory {
   position: relative;
   margin: 1vw 2vw;
   font-size: 2vw;
@@ -30,7 +30,7 @@
     cursor: pointer;
   }
 
-  .products-container {
+  .shopContainer {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: auto;
@@ -42,7 +42,7 @@
     margin: 0;
   }
 
-  .products-container::-webkit-scrollbar {
+  .shopContainer::-webkit-scrollbar {
     display: none;
   }
 }

@@ -3,7 +3,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { ProductsContext } from "../../contexts/productsContext.jsx";
 import ProductCard from "../productCard/productCard.jsx";
 
-import "./shop.scss";
+import styles from "./shop.module.scss";
 
 let initHash;
 let scrollPos = 0;
@@ -30,11 +30,9 @@ const Shop = () => {
   }, []);
 
   const scroll = (e, title) => {
-    const obj = document.querySelector(
-      "." + title + ".products-container"
-    );
+    const obj = document.querySelector(`#${title}ShopContainer`);
     let signOp = 0;
-    if (e.target.className === (title + " arrowLeft")) {
+    if (e.target.className === (styles.arrowLeft)) {
       signOp = 1;
     } else {
       signOp = -1;
@@ -46,8 +44,8 @@ const Shop = () => {
   const hideShowArrows = (title, obj) => {
     if (prevTitle !== title) {scrollPos = 0};
     prevTitle = title;
-    const rArrow = document.querySelector("." + title + ".arrowRight");
-    const lArrow = document.querySelector("." + title + ".arrowLeft");
+    const rArrow = document.querySelector(`#${title}arrowRight`);
+    const lArrow = document.querySelector(`#${title}arrowLeft`);
     if (obj.scrollLeft) {
       rArrow.style.visibility = "visible";
     } else {
@@ -68,20 +66,20 @@ const Shop = () => {
   return (
     <>
       {products.map(({ title, items }) => (
-        <div key={title} className="products-category">
-          <span className="arrow" onClick={previousPage}>
+        <div key={title} className={styles.shopCategory}>
+          <span title="Previous Page" className={styles.arrow} onClick={previousPage}>
             &#10094;{" "}
           </span>
           <Link to={title.toLowerCase()}>
-          <span id={title}>{title}</span>
+          <span title="Shop by Category" id={title}>{title}</span>
           </Link>
-          <span onClick={(e) => scroll(e, title)} className={title + " arrowLeft"}>
+          <span id={`${title}arrowLeft`} onClick={(e) => scroll(e, title)} className={styles.arrowLeft}>
             &#10094;
           </span>
-          <span onClick={(e) => scroll(e, title)} className={title + " arrowRight"}>
+          <span id={`${title}arrowRight`} onClick={(e) => scroll(e, title)} className={styles.arrowRight}>
             &#10095;
           </span>
-          <div key={title} className={`${title} products-container`}>
+          <div id={`${title}ShopContainer`} key={title} className={`${styles.shopContainer}`}>
             {items.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

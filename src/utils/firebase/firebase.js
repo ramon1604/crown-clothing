@@ -161,8 +161,16 @@ export const getCategoriesAndDocuments = async (collectionKey) => {
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q);
     const categoryMap = querySnapshot.docs.map((docSnapshot) => {
-      const { title, items } = docSnapshot.data();
-      return { title: title, items: items };
+      if (collectionKey === "categories") {
+        const { title, items } = docSnapshot.data();
+        return { title: title, items: items };
+      }
+      if (collectionKey === "directories") {
+        const { id, imageUrl, title } = docSnapshot.data();
+        return { id: id, imageUrl: imageUrl, title: title };
+      } else {
+        return null;
+      }
     });
     return categoryMap;
   } catch (error) {

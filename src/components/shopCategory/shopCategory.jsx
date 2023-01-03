@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import "./shopCategory.scss";
+import styles from "./shopCategory.module.scss";
 
 import { ProductsContext } from "../../contexts/productsContext.jsx";
 import ProductCard from "../productCard/productCard.jsx";
@@ -14,9 +14,9 @@ const ShopCategory = () => {
       {products.map(
         ({ title, items }) =>
           title.toLowerCase() === category && (
-            <div key={title} className="shopCategory-container">
-              <span className="title">{title}</span>
-              <div key={title} className="shopCategory-items-container">
+            <div key={title} className={styles.shopCategoryContainer}>
+              <span className={styles.title}>{title}</span>
+              <div key={title} className={styles.shopCategoryItemsContainer}>
                 {items.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}

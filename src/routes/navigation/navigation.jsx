@@ -7,7 +7,7 @@ import CartDropdown from "../../components/cartDropdown/cartDropdown.jsx";
 
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
-import "./navigation.scss";
+import styles from "./navigation.module.scss";
 
 import { userSignOut } from "../../utils/firebase/firebase.js";
 
@@ -28,28 +28,28 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="navigation">
-        <div className="logo-container">
+      <div className={styles.navigation}>
+        <div className={styles.logoContainer}>
           <Link to="/">
-            <CrownLogo title="Home Page" className="logo" />
+            <CrownLogo title="Home Page" className={styles.logo} />
           </Link>
-          <span title="Previous Page" className="back" onClick={previousPage}>
+          <span title="Previous Page" className={styles.back} onClick={previousPage}>
           &#8656;
           </span>
-          <span title="Next Page" className="forward" onClick={nextPage}>
+          <span title="Next Page" className={styles.forward} onClick={nextPage}>
           &#8658;
           </span>
         </div>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
+        <div className={styles.navLinksContainer}>
+          <Link className={styles.navLink} to="/shop">
             Shop
           </Link>
           {currentUser ? (
-            <Link className="nav-link" to="/" onClick={userSignOut}>
+            <Link className={styles.navLink} to="/" onClick={userSignOut}>
               Sign Out
             </Link>
           ) : (
-            <Link className="nav-link" to="/sign-in">
+            <Link className={styles.navLink} to="/sign-in">
               Sign In
             </Link>
           )}

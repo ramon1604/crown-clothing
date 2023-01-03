@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import { msgConditionReturn } from "../../utils/functions/functions.js";
 
-import "./sign-in.scss";
+import styles from "./sign-in.module.scss";
 
 import FormInput from "../formInput/formInput.jsx";
 import Button from "../button/button.jsx";
+import btnStyles from "../button/button.module.scss";
 
 import {
   signInWithUserPassword,
@@ -49,7 +50,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className={`sign-in-container`}>
+    <div className={styles.signInContainer}>
       <h2>I already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -69,13 +70,13 @@ const SignIn = () => {
           name="password"
           value={password}
         />
-        <div className={`buttons-container`}>
+        <div className={styles.buttonsContainer}>
           <Button type={`submit`} btnClass={``}>
             Sign In
           </Button>
           <Button
             type={`button`}
-            btnClass={`google-sign-in`}
+            btnClass={btnStyles.googleSignIn}
             onClick={logGoogleUser}
           >
             Google Sign In

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "./directory.scss";
 import CategoryContainer from "../categoryContainer/categoryContainer.jsx";
-import directories from "./directory.json";
+import { ProductsContext } from "../../contexts/productsContext.jsx";
 
 const Directory = () => {
+  const { directories } = useContext(ProductsContext);
   return (
     <div className="directories-container">
       {directories.map(({ id, title, imageUrl }) => (

@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
   
-    .logo-container {
+    .logoContainer {
       position: relative;
       width: 50%;
       height: auto;
@@ -21,6 +21,7 @@
         left: 80px;
         font-size: 30px;
         font-weight: bolder;
+        cursor: pointer;
       }
 
       .forward {
@@ -29,18 +30,19 @@
         left: 110px;
         font-size: 30px;
         font-weight: bolder;
+        cursor: pointer;
       }
 
     }
   
-    .nav-links-container {
+    .navLinksContainer {
       width: 50%;
       height: auto;
       display: flex;
       align-items: center;
       justify-content: flex-end;
   
-      .nav-link {
+      .navLink {
         padding: 1vw 2vw;
         cursor: pointer;
         font-size: 15px;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { msgConditionReturn } from "../../utils/functions/functions";
 
-import "./sign-up.scss";
+import styles from "./sign-up.module.scss";
 
 import FormInput from "../formInput/formInput.jsx";
 import Button from "../button/button";
@@ -48,7 +48,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className={`sign-up-container`}>
+    <div className={styles.signUpContainer}>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>

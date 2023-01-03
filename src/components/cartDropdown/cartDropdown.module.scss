@@ -1,4 +1,4 @@
-.cart-dropdown-container {
+.cartDropdownContainer {
   position: absolute;
   width: 240px;
   height: 340px;
@@ -10,14 +10,14 @@
   background-color: white;
   top: 60px;
   right: 20px;
-  z-index: 5;
+  z-index:15;
 
-  .empty-message {
+  .emptyMessage {
     font-size: 18px;
     margin: 50px auto;
   }
 
-  .cart-items {
+  .cartItems {
     height: 240px;
     display: flex;
     flex-direction: column;
