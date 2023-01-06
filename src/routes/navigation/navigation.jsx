@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../../contexts/userContext.jsx";
 import CartIcon from "../../components/cartIcon/cartIcon.jsx";
 import CartDropdown from "../../components/cartDropdown/cartDropdown.jsx";
 
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import styles from "./navigation.module.scss";
 
