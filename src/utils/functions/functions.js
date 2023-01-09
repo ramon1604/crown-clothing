@@ -6,3 +6,5 @@ export const msgConditionReturn = (msg, cond) => {
     return false;
   }
 };
+
+export const actionReducer = (type, payload) => ({ type, payload });

@@ -1,13 +1,53 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useReducer } from "react";
+import { actionReducer } from "../utils/functions/functions";
 
 export const CartContext = createContext();
 
-export const CartProvider = (props) => {
-  const [cartItems, setCartItems] = useState([]);
-  const [itemsCount, setItemsCount] = useState(0);
-  const [total, setTotal] = useState(0);
+const REDUCER_INITIAL_STATE = {
+  cartItems: [],
+  itemsCount: 0,
+  total: 0,
+};
 
-  const addCartItem = (cartItems, productToAdd) => {
+const cartReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case `UPDATE_CART_ITEMS`:
+      return {
+        ...state,
+        ...payload,
+      };
+    default:
+      throw new Error(`unhandled type of ${type} in cartReducer`);
+  }
+};
+
+export const CartProvider = (props) => {
+  const [{ cartItems, itemsCount, total }, dispatch] = useReducer(
+    cartReducer,
+    REDUCER_INITIAL_STATE
+  );
+
+  const updateCartItems = (newCartItems) => {
+    const newCartCount = newCartItems.reduce(
+      (count, cartItem) => count + cartItem.quantity,
+      0
+    );
+    const newCartTotal = newCartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity * cartItem.price,
+      0
+    );
+    dispatch(
+      actionReducer(`UPDATE_CART_ITEMS`, {
+        cartItems: newCartItems,
+        itemsCount: newCartCount,
+        total: newCartTotal,
+      })
+    );
+  };
+
+  const addCartItem = (productToAdd) => {
     const existingCartItem = cartItems.find(
       (cartItem) => cartItem.id === productToAdd.id
     );
@@ -21,7 +61,7 @@ export const CartProvider = (props) => {
     return [...cartItems, { ...productToAdd, quantity: 1 }];
   };
 
-  const removeCartItem = (cartItems, productToAdd) => {
+  const removeCartItem = (productToAdd) => {
     const existingCartItem = cartItems.find(
       (cartItem) => cartItem.id === productToAdd.id && cartItem.quantity > 1
     );
@@ -36,35 +76,21 @@ export const CartProvider = (props) => {
     }
   };
 
-  const clearCartItem = (cartItems, productToAdd) => {
+  const clearCartItem = (productToAdd) => {
     return cartItems.filter((cartItem) => cartItem.id !== productToAdd.id);
   };
 
-
   const addItemToCart = (productToAdd) => {
-    setCartItems(addCartItem(cartItems, productToAdd));
+    updateCartItems(addCartItem(productToAdd));
   };
 
   const removeItemFromCart = (productToAdd) => {
-    setCartItems(removeCartItem(cartItems, productToAdd));
+    updateCartItems(removeCartItem(productToAdd));
   };
 
   const clearItemFromCart = (productToAdd) => {
-    setCartItems(clearCartItem(cartItems, productToAdd));
+    updateCartItems(clearCartItem(productToAdd));
   };
-
-  useEffect(() => {
-    const newItemsCount = cartItems.reduce(
-      (count, cartItem) => count + cartItem.quantity,
-      0
-    );
-    const newTotal = cartItems.reduce(
-      (total, cartItem) => total + cartItem.quantity * cartItem.price,
-      0
-    );
-    setItemsCount(newItemsCount);
-    setTotal(newTotal);
-  }, [cartItems]);
 
   const values = {
     cartItems,
