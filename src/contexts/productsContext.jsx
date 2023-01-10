@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import { actionReducer } from "../utils/functions/functions";
 
 import { PRODUCTS } from "../shop-data.js";
@@ -37,6 +37,7 @@ export const ProductsProvider = (props) => {
   );
 
   const updateProductsDirectories = async () => {
+    console.log(`loading products and directories from firebase..`);
     addCollectionAndDocuments("hats", "categories", PRODUCTS);
     addCollectionAndDocuments("hats", "directories", DIRECTORIES);
     const newProducts = await getCategoriesAndDocuments("categories");
@@ -49,7 +50,9 @@ export const ProductsProvider = (props) => {
     );
   };
 
-  updateProductsDirectories();
+  useEffect(() => {
+    updateProductsDirectories();
+  }, []);
 
   const values = { products, directories };
 
