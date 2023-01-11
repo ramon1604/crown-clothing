@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
+import { actionReducer } from "../utils/functions/functions";
 
 import {
   authChangedListener,
@@ -7,18 +8,46 @@ import {
 
 export const UserContext = createContext();
 
-export const UserProvider = (props) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const user = { currentUser };
+const REDUCER_INITIAL_STATE = {
+  currentUser: null,
+};
 
-  authChangedListener((userState) => {
-    if (userState !== currentUser) {
-      setCurrentUser(userState);
-      if (userState) {
-        createUserDocumentFromAuth(userState, userState.displayName);
+const userReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case `UPDATE_CURRENT_USER`:
+      return {
+        ...state,
+        ...payload,
+      };
+    default:
+      throw new Error(`unhandled type of ${type} in userReducer`);
+  }
+};
+
+export const UserProvider = (props) => {
+  const [{ currentUser }, dispatch] = useReducer(
+    userReducer,
+    REDUCER_INITIAL_STATE
+  );
+
+  useEffect(() => {
+    authChangedListener((userState) => {
+      if (userState !== currentUser) {
+        if (userState) {
+          createUserDocumentFromAuth(userState, userState.displayName);
+        }
+        dispatch(
+          actionReducer(`UPDATE_CURRENT_USER`, {
+            currentUser: userState,
+          })
+        );
       }
-    }
-  });
+    });
+  }, [currentUser]);
+
+  const user = { currentUser };
 
   return (
     <UserContext.Provider value={user}>{props.children}</UserContext.Provider>
