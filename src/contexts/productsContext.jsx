@@ -1,8 +1,9 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useContext } from "react";
+import { UserContext } from "./userContext.jsx";
 import { actionReducer } from "../utils/functions/functions";
 
 import { PRODUCTS } from "../shop-data.js";
-import DIRECTORIES  from "../components/directory/directory.json";
+import DIRECTORIES from "../components/directory/directory.json";
 
 import {
   addCollectionAndDocuments,
@@ -20,7 +21,12 @@ const productsDirectoriesReducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case `UPDATE_PRODUCTS_DIRECTORIES`:
+    case `UPDATE_DIRECTORIES`:
+      return {
+        ...state,
+        ...payload,
+      };
+    case `UPDATE_PRODUCTS`:
       return {
         ...state,
         ...payload,
@@ -36,23 +42,34 @@ export const ProductsProvider = (props) => {
     REDUCER_INITIAL_STATE
   );
 
-  const updateProductsDirectories = async () => {
-    console.log(`loading products and directories from firebase..`);
-    addCollectionAndDocuments("hats", "categories", PRODUCTS);
+  const { currentUser } = useContext(UserContext);
+
+  const updateDirectories = async () => {
     addCollectionAndDocuments("hats", "directories", DIRECTORIES);
-    const newProducts = await getCategoriesAndDocuments("categories");
+    console.log(`loading directories from firebase..`);
     const newDirectories = await getCategoriesAndDocuments("directories");
     dispatch(
-      actionReducer(`UPDATE_PRODUCTS_DIRECTORIES`, {
-        products: newProducts,
+      actionReducer(`UPDATE_DIRECTORIES`, {
         directories: newDirectories,
       })
     );
   };
 
+  const updateProducts = async () => {
+    addCollectionAndDocuments("hats", "categories", PRODUCTS);
+    console.log(`loading products from firebase..`);
+    const newProducts = await getCategoriesAndDocuments("categories");
+    dispatch(
+      actionReducer(`UPDATE_PRODUCTS`, {
+        products: newProducts,
+      })
+    );
+  };
+
   useEffect(() => {
-    updateProductsDirectories();
-  }, []);
+    !currentUser && updateDirectories();
+    currentUser && updateProducts();
+  }, [currentUser]);
 
   const values = { products, directories };
 

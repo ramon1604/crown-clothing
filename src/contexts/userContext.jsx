@@ -9,7 +9,7 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const user = { currentUser, setCurrentUser };
+  const user = { currentUser };
 
   authChangedListener((userState) => {
     if (userState !== currentUser) {

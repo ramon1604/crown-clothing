@@ -6,16 +6,16 @@ import { ProductsContext } from "../../contexts/productsContext.jsx";
 
 const Directory = () => {
   const { directories } = useContext(ProductsContext);
-  return (
-    <div className="directories-container">
-      {directories.map(({ id, title, imageUrl }) => (
-        <CategoryContainer
-          key={id}
-          title={title}
-          image={imageUrl}
-        />
-      ))}
-    </div>
-  );
+  if (directories) {
+    return (
+      <div className="directories-container">
+        {directories.map(({ id, title, imageUrl }) => (
+          <CategoryContainer key={id} title={title} image={imageUrl} />
+        ))}
+      </div>
+    );
+  } else {
+    return <h1>Categories not available</h1>;
+  }
 };
 export default Directory;
