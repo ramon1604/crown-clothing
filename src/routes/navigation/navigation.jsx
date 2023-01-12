@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
-import { UserContext } from "../../contexts/userContext.jsx";
 import CartIcon from "../../components/cartIcon/cartIcon.jsx";
 import CartDropdown from "../../components/cartDropdown/cartDropdown.jsx";
 
@@ -12,7 +12,7 @@ import { userSignOut } from "../../utils/firebase/firebase.js";
 
 const Navigation = () => {
   const [show, setShow] = useState(false);
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
 
   const handlerShow = () => setShow((prevShow) => !prevShow);

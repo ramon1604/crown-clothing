@@ -1,6 +1,6 @@
-import React, { createContext, useReducer, useEffect, useContext } from "react";
-import { UserContext } from "./userContext.jsx";
+import React, { createContext, useReducer, useEffect } from "react";
 import { actionReducer } from "../utils/functions/functions";
+import { useSelector } from "react-redux";
 
 import { PRODUCTS } from "../shop-data.js";
 import DIRECTORIES from "../components/directory/directory.json";
@@ -42,7 +42,7 @@ export const ProductsProvider = (props) => {
     REDUCER_INITIAL_STATE
   );
 
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const updateDirectories = async () => {
     addCollectionAndDocuments("hats", "directories", DIRECTORIES);
